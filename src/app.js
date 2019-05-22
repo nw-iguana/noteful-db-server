@@ -5,18 +5,19 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config')
 const FoldersRouter = require('./folders/foldersRouter')
-const NotesRouter = require('./notes/notesRouter')
+// const NotesRouter = require('./notes/notesRouter')
 
-const app = express();
+const app = express()
 
 const morganOption = (NODE_ENV === 'production')
     ? 'tiny'
     : 'common';
 
-app.use(morgan(morganOption));
-app.use(cors());
-app.use(helmet());
-app.use('api/folders', FoldersRouter);
+app.use(morgan(morganOption))
+app.use(cors())
+app.use(helmet())
+app.use(express.json()) //NEW ADDITION
+app.use('/api/folders', FoldersRouter)
 // app.use('api/notes', NotesRouter)
 
 
@@ -29,13 +30,13 @@ app.use(function errorHandler(error, req, res, next) {
         response = { message: error.message, error }
     }
     res.status(500).json(response)
-});
+})
 
 
 
-app.get('/', (req, res) => {
-    res.send('Hello, boilerplate!')
-});
+// app.get('/', (req, res) => {
+//     res.send('Hello, boilerplate!')
+// });
 
 
-module.exports = app;
+module.exports = app
