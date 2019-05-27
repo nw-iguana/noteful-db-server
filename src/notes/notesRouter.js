@@ -1,7 +1,6 @@
 const path = require("path");
 const express = require("express");
 const NotesService = require("./notesService");
-
 const NotesRouter = express.Router();
 const jsonParser = express.json();
 
